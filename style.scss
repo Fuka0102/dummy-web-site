@@ -1,0 +1,1461 @@
+@use "sass:math";
+
+// ============================================================
+// Variables
+// ============================================================
+$blue-from:    #559de6;
+$blue-to:      #5570e6;
+$pink-from:    #e6556f;
+$pink-to:      #e655a0;
+$light-blue:   #cce4fe;
+$light-blue2:  #eef1fc;
+$blue-accent:  #5570e6;
+$text-dark:    #212121;
+$text-gray:    #626262;
+
+$blue-grad:    linear-gradient(to right, $blue-from, $blue-to);
+$pink-grad:    linear-gradient(to right, $pink-from, $pink-to);
+$blue-grad-b:  linear-gradient(to bottom, #77afeb, #7a92eb);
+$mv-grad:      linear-gradient(to bottom, rgba(85, 157, 230, .6), rgba(85, 112, 230, .6));
+
+// ============================================================
+// Mixins
+// ============================================================
+
+// SP~PCをvwで線形補間する fluid typography 関数
+// $min-vp=375(SP基準), $max-vp=1080(PC基準)
+@function fluid-size($min, $max, $min-vp: 375, $max-vp: 1080) {
+  $slope: math.div($max - $min, $max-vp - $min-vp);
+  $intercept: $min - $slope * $min-vp;
+  @return clamp(#{$min}px, calc(#{$slope * 100}vw + #{$intercept}px), #{$max}px);
+}
+
+@mixin grad-text($grad: $blue-grad) {
+  background: $grad;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+// ============================================================
+// Base
+// ============================================================
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  interpolate-size: allow-keywords;
+}
+
+html {
+  font-family: 'Noto Sans JP', sans-serif;
+  color: $text-dark;
+}
+
+img {
+  max-width: 100%;
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// ============================================================
+// Layout
+// ============================================================
+.l-page {
+  margin: 0 auto;
+  overflow: hidden;
+  background: #fff;
+}
+
+.l-footer {
+  padding: 16px;
+  text-align: center;
+
+  p {
+    font-size: 10px;
+    color: $text-dark;
+    line-height: 1.3;
+  }
+}
+
+.l-section-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+    padding: 56px 10px 80px;
+
+    &--mv {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    &--trouble {
+      padding-bottom: 34px;
+    }
+
+    &--entrast {
+        padding: 48px 10px 56px;
+    }
+
+    &--contact {
+      padding-bottom: 64px;
+    }
+
+}
+
+.sm {
+  display: block;
+}
+
+.md {
+  display: none;
+}
+
+.lg {
+  display: none;
+}
+
+// ============================================================
+// Common: Button
+// ============================================================
+.c-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+
+  &--primary {
+    background: $pink-grad;
+    color: #fff;
+    width: 280px;
+    height: 40px;
+    font-size: fluid-size(16, 20);
+  }
+}
+
+// ============================================================
+// Common: Section Title
+// ============================================================
+.c-section-title {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .c-section-title__en {
+    font-size: fluid-size(12, 20);
+    font-weight: 700;
+    @include grad-text;
+    line-height: 1.3;
+  }
+
+  .c-section-title__ja {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .c-section-title__plain {
+    font-size: fluid-size(18, 28);
+    font-weight: 700;
+    color: $text-dark;
+    line-height: 1.3;
+  }
+
+  .c-section-title__hl {
+    display: inline-flex;
+    align-items: baseline;
+    background: rgba(85, 112, 230, .1);
+    border-radius: 8px;
+    padding: 2px 4px;
+    font-weight: 700;
+    @include grad-text;
+    line-height: 1;
+    font-size: fluid-size(24, 40);
+
+    &-lg { font-size: fluid-size(24, 64); }
+    &-sm { font-size: fluid-size(18, 32); }
+  }
+
+  .c-section-title__hl-background {
+    background-color: rgb(85 112 230 / 0.1);
+    border-radius: 8px;
+  }
+
+  // White variant (contact section)
+  &--white {
+    .c-section-title__en {
+      background: none;
+      -webkit-text-fill-color: #fff;
+      color: #fff;
+    }
+
+    .c-section-title__hl--white {
+      background: rgba(255, 255, 255, .2);
+      background-clip: unset;
+      -webkit-background-clip: unset;
+      -webkit-text-fill-color: #fff;
+      color: #fff;
+    }
+  }
+}
+
+// ============================================================
+// Common: Review Card
+// ============================================================
+.c-review-card {
+  position: relative;
+  padding: 0 10px 10px 0;
+
+  .c-review-card__shadow {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 0;
+    bottom: 0;
+    background: $blue-grad;
+    border-radius: 8px;
+  }
+
+  .c-review-card__inner {
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    border-radius: 8px;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .c-review-card__avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .c-review-card__body {
+    width: 100%;
+  }
+
+  .c-review-card__title {
+    font-size: fluid-size(16, 20);
+    font-weight: 700;
+    color: $blue-accent;
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+
+  .c-review-card__text {
+    font-size: fluid-size(12, 16);
+    font-weight: 400;
+    color: $text-dark;
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+
+  .c-review-card__author {
+    font-size: fluid-size(10, 14);
+    color: $text-dark;
+    line-height: 1.3;
+  }
+}
+
+// ============================================================
+// Common: FAQ Item
+// ============================================================
+.c-faq-item {
+  background: $light-blue2;
+  border-radius: 8px;
+
+  &.is-open {
+    background: $light-blue;
+
+    .c-faq-item__q::after {
+      transform: translateY(-50%) rotate(180deg);
+    }
+
+    .c-faq-item__a {
+      height: auto;
+      padding: 0 16px 16px;
+    }
+  }
+
+  .c-faq-item__q {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    cursor: pointer;
+    padding: 16px;
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      background-image: url(./images/sp/faq-polygon.png);
+      background-repeat: no-repeat;
+      top: 50%;
+      right: 16px;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 12px;
+      background-size: contain;
+      transition: transform 0.3s ease;
+    }
+  }
+
+  .c-faq-item__icon {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+      background-color: #fff;
+    border-radius: 50%;
+
+    &-letter {
+      position: absolute;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.3;
+
+      &--q {
+        top: 2px;
+        left: 8px;
+        @include grad-text($blue-grad);
+      }
+
+      &--a {
+        top: 5px;
+        left: 9px;
+        @include grad-text(linear-gradient(to right, #d755e6, #e655a0));
+      }
+    }
+  }
+
+  .c-faq-item__q-text {
+    flex: 1;
+    font-size: fluid-size(14, 18);
+    font-weight: 700;
+    color: $text-dark;
+    line-height: 1.3;
+    padding-right: 20px;
+  }
+
+  .c-faq-item__a {
+    display: flex;
+    gap: 8px;
+    padding: 0 16px;
+    margin-top: 0;
+    align-items: flex-start;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease, margin-top 0.3s ease;
+
+    &-body {
+      flex: 1;
+      font-size: fluid-size(12, 16);
+      line-height: 1.7;
+      color: $text-dark;
+    }
+
+    &-lead {
+      font-weight: 700;
+      color: $blue-accent;
+    }
+  }
+}
+
+// ============================================================
+// Common: Point Card
+// ============================================================
+.c-point-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6.08vw; // 395px基準: 24px = 6.08vw
+
+  .c-point-card__img-wrap {
+    position: relative;
+    aspect-ratio: 3 / 2;
+    margin-left: 0;
+  }
+
+  .c-point-card__img-shadow {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    right: 0;
+    bottom: 0;
+    background: $blue-grad;
+    border-radius: 8px;
+  }
+
+  .c-point-card__img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - 12px);
+    height: calc(100% - 10px);
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .c-point-card__body {
+    position: relative;
+    background: $light-blue;
+    border-radius: 8px;
+    padding: 6.08vw 16px 4.05vw; // 395px基準: top 24px=6.08vw, bottom 16px=4.05vw
+    margin: 0 0;
+  }
+
+  .c-point-card__num {
+    position: absolute;
+    top: 0;
+    left: 15px;
+    transform: translateY(-50%);
+    font-size: fluid-size(36, 80);
+    font-weight: 700;
+    line-height: 1;
+    @include grad-text;
+  }
+
+  .c-point-card__title {
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    font-size: fluid-size(20, 24);
+    font-weight: 700;
+    color: $text-dark;
+    line-height: 1.3;
+  }
+
+  .c-point-card__title-hl {
+    display: inline;
+    background: #fff;
+    font-size: fluid-size(20, 24);
+    font-weight: 700;
+    color: $blue-accent;
+    line-height: 1.3;
+    padding: 0;
+  }
+
+  .c-point-card__desc {
+    font-size: fluid-size(12, 16);
+    font-weight: 400;
+    line-height: 1.7;
+    color: $text-dark;
+  }
+}
+
+// ============================================================
+// Utility
+// ============================================================
+.u-text-blue { color: $blue-accent; }
+
+// ============================================================
+// MV Section
+// ============================================================
+.p-mv {
+  position: relative;
+  background: $mv-grad;
+  background-image: url(./images/sp/mv-bg.png);
+  background-position: center;
+  background-size: cover;
+
+  .p-mv__body {
+    display: flex;
+    flex-direction: column;
+    padding: 92px 10px 42px;
+  }
+
+  .p-mv__catch {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .p-mv__catch-item {
+    display: inline-flex;
+    align-items: baseline;
+    background: #fff;
+    border-radius: 8px;
+    padding: 2px 8px;
+  }
+
+  .p-mv__catch-lg {
+    font-size: fluid-size(32, 64);
+    font-weight: 500;
+    line-height: 1.3;
+    @include grad-text;
+  }
+
+  .p-mv__catch-md {
+    font-size: fluid-size(24, 48);
+    font-weight: 500;
+    line-height: 1.3;
+    @include grad-text;
+  }
+
+  .p-mv__person {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .p-mv__cta {
+        margin: 10px auto 0;;
+
+  }
+}
+
+// ============================================================
+// Header
+// ============================================================
+.c-header {
+  width: calc(100% - 20px);
+  top: 16px;
+  left: 50%;
+  transform: translate(-50%);
+  background: rgba(255, 255, 255, .7);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  z-index: 10;
+  position: fixed;
+
+  .c-header__logo {
+    font-size: 25px;
+    font-weight: 700;
+    color: $text-gray;
+    flex: 1;
+  }
+
+  .c-header__menu-container {
+    display: flex;
+    gap: 16px;
+  }
+
+  .c-header__button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    width: 34px;
+    position: relative;
+
+    &.is-active {
+
+      .c-header__button-line {
+        position: absolute;
+
+        &:first-of-type {
+          rotate: 45deg;
+        }
+        &:nth-of-type(2) {
+          display: none;
+        }
+        &:last-of-type {
+          rotate: -45deg;
+        }
+      }
+    }
+  }
+
+  .c-header__button-line {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: $text-gray;
+  }
+
+  .c-header__btn {
+    background: $pink-grad;
+    color: #fff;
+    font-size: fluid-size(13, 16);
+    font-weight: 700;
+    padding: 6px 8px;
+    border-radius: 8px;
+    white-space: nowrap;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .c-header__menu {
+	  height: 0;
+    opacity: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #CCE4FE;
+    border-radius: 8px;
+    width: 100%;
+    transition: opacity 0.4s ease-in, height 0.4s, content-visibility 0.4s allow-discrete;    
+    padding: 0px 16px;
+    pointer-events: none;
+
+    &.is-active {	
+      height: auto;
+  	  opacity: 1;
+      padding-top: 4px;
+      padding-bottom: 4px;
+      pointer-events: visible;
+    }
+  }
+
+  .c-header__menu-item {
+    & + & {
+      border-top: 1px solid #5570E6;
+    }
+  }
+
+  .c-header__menu-link {
+    display: block;
+    color: #212121;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 12px 0;
+  }
+    
+
+}
+
+// ============================================================
+// Trouble Section
+// ============================================================
+.p-trouble {
+  background: #F7F7F7;
+  position: relative;
+
+  .p-trouble__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 32px;
+  }
+
+  .p-trouble__item {
+    background: #fff;
+    border-radius: 8px;
+    padding: 22px 16px;
+    align-items: center;
+    justify-content: center;
+    font-size: fluid-size(16, 20);
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .p-trouble__deco {
+    text-align: center;
+    margin: 24px auto 0;
+    z-index: 2;
+    position: relative;
+    width: 280px;
+  }
+}
+
+// ============================================================
+// Entrust Section
+// ============================================================
+.p-entrust {
+  background: $blue-grad-b;
+  text-align: center;
+  position: relative;
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: -19px;
+    transform: translate(-50%);
+    width: 204px;
+    height: 38px;
+    background-size: contain;
+    background-repeat: no-repeat;
+      background-image: url(./images/sp/polygon.png);
+  }
+
+  .p-entrust__arrow {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+
+    img {
+      width: 204px;
+      transform: rotate(180deg);
+    }
+  }
+
+  .p-entrust__title-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  .p-entrust__title-box {
+    display: inline-flex;
+    align-items: baseline;
+    background: #fff;
+    border-radius: 8px;
+    padding: 4px 16px;
+  }
+
+  .p-entrust__title-lg {
+    font-size: fluid-size(30, 48);
+    font-weight: 700;
+    @include grad-text;
+  }
+
+  .p-entrust__title-sm {
+    font-size: fluid-size(18, 32);
+    font-weight: 700;
+    @include grad-text;
+  }
+
+  .p-entrust__desc {
+    font-size: fluid-size(14, 18);
+    color: #fff;
+    line-height: 1.7;
+  }
+}
+
+// ============================================================
+// Points Section
+// ============================================================
+.p-points {
+  display: flex;
+  gap: 4px;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+
+  .p-points__list {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(24px, 6.08vw, 40px);
+    max-width: 600px;
+  }
+}
+
+// ============================================================
+// Flow Section
+// ============================================================
+.p-flow {
+  background: $light-blue;
+
+  .p-flow__steps {
+    display: flex;
+    flex-direction: column;
+    margin-top: 32px;
+    gap: 56px;
+  }
+
+  .p-flow__step {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+}
+
+// ステップ間の接続線（& + & がネスト内で正しくコンパイルされないため独立させる）
+.p-flow__step + .p-flow__step {
+  &::before {
+    content: '';
+    position: absolute;
+    top: -48px;
+    left: 33px;
+    height: 40px;
+    width: 1px;
+    background: $blue-grad;
+  }
+}
+
+.p-flow {
+
+  .p-flow__step-left {
+    width: 66px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .p-flow__step-num {
+    font-size: fluid-size(12, 16);
+    font-weight: 700;
+    @include grad-text;
+    white-space: nowrap;
+  }
+
+  .p-flow__step-circle {
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    border: 2px solid $blue-from;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 42px;
+      height: 42px;
+    }
+
+    &--1 { background: #87c1fd; }
+    &--2 { background: #5ba5f2; }
+    &--3 { background: #3189e4; }
+    &--4 { background: #5b74f2; }
+    &--5 { background: #2825e7; }
+  }
+
+  .p-flow__step-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 8px;
+    flex: 1;
+  }
+
+  .p-flow__step-title {
+    font-size: fluid-size(16, 22);
+    font-weight: 700;
+    color: $blue-accent;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .p-flow__step-desc {
+    font-size: fluid-size(12, 16);
+    font-weight: 400;
+    color: $text-dark;
+    line-height: 1.5;
+  }
+
+  .p-flow__arrow {
+    display: flex;
+    align-items: center;
+    padding: 4px 0 4px 33px; // align with icon center (66/2 = 33)
+
+    img {
+      width: 2px;
+      height: 40px;
+    }
+  }
+
+  .p-flow__step-cta {
+    display: none;
+  }
+}
+
+// ============================================================
+// Works Section
+// ============================================================
+.p-works {
+
+  .p-works__carousel {
+    position: relative;
+    margin-top: 32px;
+
+    @media(max-width: 991px) {
+      margin-inline: -10px;
+    }
+  }
+
+  .p-works__list {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 16px;
+    padding-inline: 12px;
+    scroll-padding-inline: 12px;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar { display: none; }
+  }
+
+  .p-works__item {
+    flex: 0 0 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scroll-snap-align: center;
+
+    // 幅が広がったSPでは前後を見切らせる
+    @media(min-width: 480px) and (max-width: 991px) {
+      flex: 0 0 calc(100% - 48px);
+    }
+  }
+
+  .p-works__img-wrap {
+    width: 100%;
+    height: clamp(210px, 56vw, 420px);
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .p-works__info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .p-works__tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 4px;
+    background: $blue-grad;
+    font-size: fluid-size(10, 16);
+    color: #fff;
+    line-height: 1.3;
+    align-self: flex-start;
+  }
+
+  .p-works__client {
+    font-size: fluid-size(16, 20);
+    font-weight: 700;
+    color: $blue-accent;
+    line-height: 1.3;
+  }
+
+  .p-works__desc {
+    font-size: fluid-size(12, 16);
+    color: $text-dark;
+    line-height: 1.3;
+  }
+
+  .p-works__arrow {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #fff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    color: $blue-accent;
+    transition: opacity 0.2s;
+
+    &:disabled {
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    &--prev { left: 4px; }
+    &--next { right: 4px; }
+  }
+}
+
+// ============================================================
+// Reviews Section
+// ============================================================
+.p-reviews {
+  background: $light-blue;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+
+  .p-reviews__list {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
+// ============================================================
+// FAQ Section
+// ============================================================
+.p-faq {
+  .c-section-title {
+    margin-bottom: 32px;
+  }
+
+  .p-faq__list {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+// ============================================================
+// Contact Section
+// ============================================================
+.p-contact {
+  background: $blue-grad-b;
+  text-align: center;
+
+  .c-section-title {
+    margin-bottom: 24px;
+  }
+
+  .p-contact__desc {
+    font-size: fluid-size(14, 18);
+    color: #fff;
+    line-height: 1.7;
+  }
+
+  .c-btn--primary {
+    margin: 32px auto 0;
+  }
+}
+
+// ============================================================
+// PC Styles (min-width: 992px)
+// ============================================================
+@media(min-width: 992px) {
+.sm {
+    display: none;
+  }
+
+
+  .lg {
+    display: none;
+  }
+
+  .md {
+    display: block;
+  }
+
+  // --- Layout ---
+  .l-section-inner {
+    padding: 64px 10px;g
+
+    &--mv {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    &--trouble { 
+      padding-bottom: 10px; 
+    }
+
+    &--entrast { 
+      padding-top: 64px;
+      padding-bottom: 45px;
+    }
+  }
+
+  // --- Button ---
+  .c-btn--primary {
+    width: 280px;
+    height: 56px;
+    font-size: 24px;
+  }
+
+  // --- Section Title ---
+  .c-section-title {
+    gap: 8px;
+
+    .c-section-title__hl {
+      padding: 4px 8px;
+    }
+  }
+
+  // --- Header ---
+  .c-header {
+    max-width: 1080px;
+    padding: 9px 16px;
+
+    .c-header__menu-container {
+      flex-direction: row-reverse;
+      gap: 32px;
+    }
+
+    .c-header__button { display: none; }
+
+    .c-header__menu {
+      height: auto;
+      opacity: 1;
+      position: static;
+      background: none;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+      padding: 0;
+      flex: 1;
+      justify-content: center;
+      transition: none;
+      pointer-events: visible;
+    }
+
+    .c-header__menu-item {
+      & + & { border-top: none; }
+    }
+
+    .c-header__menu-link {
+      padding: 0;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .c-header__btn {
+      padding: 16px 0 15px;
+      white-space: nowrap;
+      font-size: 18px;
+      width: 212px;
+    }
+  }
+
+  // --- MV ---
+  .p-mv {
+    background-image: url(./images/pc/mv-bg.png);
+
+    .p-mv__body {
+      max-width: 1440px;
+      margin: 0 auto;
+      flex-direction: column;
+      align-items: flex-start;
+      height: 569px;
+      position: relative;
+      padding: 120px 0 42px;
+    }
+
+    .p-mv__catch {
+      gap: 14px;
+    }
+
+    .p-mv__catch-item {
+        height: 91px;
+        padding: 4px 16px;
+    }
+
+    .p-mv__person {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      max-width: 560px;
+      margin: 0;
+      width: 48%;
+      transform: translateY(-50%);
+    }
+
+    .p-mv__cta {
+      margin: 40px 0 0;
+    }
+  }
+
+  // --- Trouble ---
+  .p-trouble {
+    .p-trouble__body {
+      position: relative;
+    }
+
+    .p-trouble__list {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    .p-trouble__item {
+      position: absolute;
+      top: 29px;
+      left: 0;
+      width: 392px;
+
+      &--2 {
+        top: 29px;
+        left: auto;
+        right: 0;
+        width: 350px;
+      }
+
+      &--3 {
+        top: auto;
+        bottom: 83px;
+        left: 50px;
+        width: 312px;
+      }
+
+      &--4 {
+        top: auto;
+        bottom: 83px;
+        left: auto;
+        right: 40px;
+        width: 332px;
+      }
+    }
+
+    .p-trouble__deco { 
+      width: 320px; 
+    }
+  }
+
+
+  // --- Points ---
+  .p-points {
+    .p-points__list {
+      align-items: flex-start;
+      max-width: 100%;
+    }
+  }
+
+  .c-point-card {
+    position: relative;
+    flex-direction: row;
+    width: clamp(375px, calc(100vw - 20px), 1080px);
+    gap: 0;
+
+    .c-point-card__img-wrap {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: min(421px, 39vw);  // 421/1080 ≈ 39vw
+      aspect-ratio: 3 / 2;
+      margin: 0;
+      z-index: 2;
+    }
+
+    .c-point-card__body {
+      width: min(765px, 71vw);  // 765/1080 ≈ 71vw
+      margin-top: 71px;
+      // right padding: vw で重なりを防ぎ、1200px超(160px)で固定
+      padding: 56px min(calc(12vw + 16px), 160px) 24px 16px;
+    }
+
+    .c-point-card__num {
+      top: 0;
+    }
+
+    .c-point-card__title {
+      flex-direction: row;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 0;
+      margin-bottom: 18px;
+    }
+
+    .c-point-card__title-hl {
+      display: inline-flex;
+      align-items: center;
+      padding: 0 2px;
+    }
+
+    .c-point-card__desc { max-width: 598px; }
+
+    &--reverse {
+      .c-point-card__img-wrap {
+        left: 0;
+        right: auto;
+      }
+      .c-point-card__body {
+        margin-left: auto;
+        padding-left: 149px;
+        padding-right: 16px; // 画像は左側なので右は通常値に戻す
+      }
+      .c-point-card__num {
+        left: 145px;
+      }
+    }
+  }
+
+  // --- Flow ---
+  .p-flow {
+    .p-flow__steps { gap: 56px; }
+
+    .p-flow__step {
+      gap: 48px;
+    }
+
+    .p-flow__step + .p-flow__step::before {
+      left: 48px; // center of 96px circle
+    }
+
+    .p-flow__step-left { width: 96px; }
+
+    .p-flow__step-circle {
+      width: 96px;
+      height: 96px;
+
+      img { width: 56px; height: 56px; }
+    }
+
+    .p-flow__step-card {
+      padding: 16px 24px;
+
+      &--has-btn {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+    }
+
+    .p-flow__step-card-left { flex: 1; }
+
+
+    .p-flow__step-cta {
+      display: flex;
+      flex-shrink: 0;
+      width: 280px;
+      height: 72px;
+      font-size: 20px;
+    }
+  }
+
+  // --- Works ---
+  .p-works {
+    .p-works__list {
+      gap: 24px;
+      padding-inline: 40px;
+      scroll-padding-inline: 40px;
+    }
+
+    // 1枚メイン + 両端peek: 100% - 100px → content_box内で66px peek each side
+    .p-works__item {
+      flex: 0 0 calc(100% - 100px);
+      scroll-snap-align: center;
+    }
+
+    .p-works__img-wrap { height: 356px; }
+
+    .p-works__tag { height: auto; }
+
+    .p-works__arrow {
+      top: calc(356px / 2);
+      width: 48px;
+      height: 48px;
+
+      &--prev { left: 0; }
+      &--next { right: 0; }
+    }
+  }
+
+  // --- Reviews ---
+  .c-review-card {
+    .c-review-card__inner {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+
+    .c-review-card__avatar { width: 120px; height: 120px; }
+  }
+
+  .p-reviews__list { gap: 32px; }
+
+  // --- FAQ ---
+  .c-faq-item {
+    .c-faq-item__icon {
+      width: 48px;
+      height: 48px;
+
+      &-bg { display: none; }
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: rgba(85, 112, 230, 0.15);
+      }
+
+      &-letter {
+        font-size: 28px;
+
+        &--q { top: 5px;  left: 13px; }
+        &--a { top: 5px; left: 15px; }
+      }
+    }
+
+    .c-faq-item__q{
+      &::after {
+        background-image: url(./images/pc/faq-polygon.png);
+        width: 32px;
+        height: 24px;
+      }
+    }
+
+  }
+
+  .p-faq__list { gap: 32px; }
+
+  // --- Contact ---
+  .p-contact {
+    .p-contact__desc {
+      br { display: none; }
+    }
+  }
+}
+
+// ============================================================
+// PC Styles (min-width: 1400px)
+// ============================================================
+@media(min-width: 1400px) {
+
+  .sm {
+    display: none;
+  }
+
+  .md {
+    display: none;
+  }
+
+  .lg {
+    display: block;
+  }
+
+  .c-header {
+    width: 100%;
+  }
+
+  .l-section-inner {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

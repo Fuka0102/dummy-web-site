@@ -1,0 +1,15 @@
+{
+  "name": "lp",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "js/index.js",
+  "scripts": {
+    "start": "node js/index.js"
+  },
+  "dependencies": {
+    "jquery": "^4.0.0"
+  }
+}
