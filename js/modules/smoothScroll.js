@@ -10,7 +10,7 @@ export function smoothScroll() {
       e.preventDefault();
 
       // 固定ヘッダーの高さ + top offset 分を引いてスクロール位置を調整
-      const header = document.querySelector('.c-header');
+      const header = document.querySelector('.js-header');
       const headerOffset = header ? header.offsetHeight + 16 : 0;
       const targetTop = target.getBoundingClientRect().top + window.scrollY - headerOffset;
 

@@ -1,8 +1,8 @@
 export function faqAccordion() {
-  const items = document.querySelectorAll('.c-faq-item');
+  const items = document.querySelectorAll('.js-faq-item');
 
   items.forEach(item => {
-    const q = item.querySelector('.c-faq-item__q');
+    const q = item.querySelector('.js-faq-item-q');
     if (!q) return;
 
     q.addEventListener('click', () => {

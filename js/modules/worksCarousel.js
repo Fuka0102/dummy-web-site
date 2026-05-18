@@ -1,12 +1,12 @@
 export function worksCarousel() {
-  const list = document.querySelector('.p-works__list');
-  const prev = document.querySelector('.p-works__arrow--prev');
-  const next = document.querySelector('.p-works__arrow--next');
+  const list = document.querySelector('.js-works-list');
+  const prev = document.querySelector('.js-works-prev');
+  const next = document.querySelector('.js-works-next');
 
   if (!list || !prev || !next) return;
 
   const getScrollAmount = () => {
-    const item = list.querySelector('.p-works__item');
+    const item = list.querySelector('.js-works-item');
     if (!item) return 0;
     const gap = parseFloat(getComputedStyle(list).gap) || 0;
     return item.getBoundingClientRect().width + gap;
