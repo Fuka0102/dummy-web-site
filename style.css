@@ -565,7 +565,8 @@ ul {
   transform: scaleX(1);
 }
 .c-header .c-header__menu {
-  display: none;
+  opacity: 0;
+  visibility: hidden;
   position: absolute;
   top: 100%;
   left: 0;
@@ -573,6 +574,11 @@ ul {
   border-radius: 8px;
   width: 100%;
   padding: 4px 16px;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.c-header .c-header__menu.is-active {
+  opacity: 1;
+  visibility: visible;
 }
 .c-header .c-header__menu-item + .c-header .c-header__menu-item {
   border-top: 1px solid #5570E6;
@@ -969,15 +975,18 @@ ul {
     display: none;
   }
   .c-header .c-header__menu {
-    display: flex;
+    opacity: 1;
+    visibility: visible;
     position: static;
     background: none;
+    display: flex;
     flex-direction: row;
     align-items: center;
     gap: 16px;
     padding: 0;
     flex: 1;
     justify-content: center;
+    transition: none;
   }
   .c-header .c-header__menu-item + .c-header .c-header__menu-item {
     border-top: none;

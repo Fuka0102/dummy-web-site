@@ -17,8 +17,7 @@ export function smoothScroll() {
       window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
 
       // スマホメニューが開いていたら閉じる
-      const menu = document.querySelector('.js-header-menu');
-      if (menu && menu.style.display !== 'none') menu.style.display = 'none';
+      document.querySelector('.js-header-menu')?.classList.remove('is-active');
       document.querySelector('.js-header-menu-trigger')?.classList.remove('is-active');
     });
   });

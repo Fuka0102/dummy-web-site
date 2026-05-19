@@ -673,7 +673,8 @@ ul {
   }
 
   .c-header__menu {
-    display: none; // jQuery の fadeToggle で開閉
+    opacity: 0;
+    visibility: hidden;
     position: absolute;
     top: 100%;
     left: 0;
@@ -681,6 +682,12 @@ ul {
     border-radius: 8px;
     width: 100%;
     padding: 4px 16px;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+
+    &.is-active {
+      opacity: 1;
+      visibility: visible;
+    }
   }
 
   .c-header__menu-item {
@@ -1147,15 +1154,18 @@ ul {
     .c-header__button { display: none; }
 
     .c-header__menu {
-      display: flex; // base の display:none を上書きして常時表示
+      opacity: 1;           // base の opacity:0 を上書き
+      visibility: visible;  // base の visibility:hidden を上書き
       position: static;
       background: none;
+      display: flex;
       flex-direction: row;
       align-items: center;
       gap: 16px;
       padding: 0;
       flex: 1;
       justify-content: center;
+      transition: none;
     }
 
     .c-header__menu-item {
