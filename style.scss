@@ -1510,15 +1510,6 @@ ul {
     opacity: 1;
     transform: translateY(0);
   }
-
-  // その場でふわっと出るだけ（translateY なし）
-  &.js-fade-in--still {
-    transform: none;
-
-    &.is-visible {
-      transform: none;
-    }
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
