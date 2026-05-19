@@ -1,9 +1,11 @@
-export function headerMenu() {
-    const targetMenu = document.querySelector('.js-header-menu');
-    const trigger = document.querySelector('.js-header-menu-trigger');
+import $ from '../../node_modules/jquery/dist-module/jquery.module.js';
 
-    trigger.addEventListener("click", function (e) {
-        targetMenu.classList.toggle('is-active');
-        e.currentTarget.classList.toggle('is-active');
-    });
+export function headerMenu() {
+  const $menu = $('.js-header-menu');
+  const $trigger = $('.js-header-menu-trigger');
+
+  $trigger.on('click', function () {
+    $menu.fadeToggle(250);
+    $(this).toggleClass('is-active');
+  });
 }
