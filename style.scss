@@ -282,7 +282,7 @@ ul {
     overflow: hidden;
     flex-shrink: 0;
 
-    img {
+    .c-review-card__avatar-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -758,16 +758,6 @@ ul {
       background-image: url(./images/sp/polygon.png);
   }
 
-  .p-entrust__arrow {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 16px;
-
-    img {
-      width: 204px;
-      transform: rotate(180deg);
-    }
-  }
 
   .p-entrust__title-wrap {
     display: flex;
@@ -882,7 +872,7 @@ ul {
     align-items: center;
     justify-content: center;
 
-    img {
+    .p-flow__step-circle-img {
       width: 42px;
       height: 42px;
     }
@@ -916,16 +906,6 @@ ul {
     line-height: 1.5;
   }
 
-  .p-flow__arrow {
-    display: flex;
-    align-items: center;
-    padding: 4px 0 4px 33px; // align with icon center (66/2 = 33)
-
-    img {
-      width: 2px;
-      height: 40px;
-    }
-  }
 
   .p-flow__step-cta {
     display: none;
@@ -981,7 +961,7 @@ ul {
     overflow: hidden;
     flex-shrink: 0;
 
-    img {
+    .p-works__img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -1371,7 +1351,7 @@ ul {
       width: 96px;
       height: 96px;
 
-      img { width: 56px; height: 56px; }
+      .p-flow__step-circle-img { width: 56px; height: 56px; }
     }
 
     .p-flow__step-card {
