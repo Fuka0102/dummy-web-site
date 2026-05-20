@@ -77,7 +77,7 @@ ul {
 // ============================================================
 .l-page {
   margin: 0 auto;
-  overflow: hidden;
+  overflow-x: clip; // hidden はiOS SafariでIntersectionObserverが動かないため clip に変更
   background: #fff;
 }
 

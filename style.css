@@ -31,7 +31,7 @@ ul {
 
 .l-page {
   margin: 0 auto;
-  overflow: hidden;
+  overflow-x: clip;
   background: #fff;
 }
 
@@ -218,8 +218,7 @@ ul {
 .c-review-card .c-review-card__avatar .c-review-card__avatar-img {
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .c-review-card .c-review-card__body {
   width: 100%;
@@ -366,8 +365,7 @@ ul {
   left: 0;
   width: calc(100% - 12px);
   height: calc(100% - 10px);
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   border-radius: 8px;
 }
 .c-point-card .c-point-card__body {
@@ -833,8 +831,7 @@ ul {
 .p-works .p-works__img-wrap .p-works__img {
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .p-works .p-works__info {
   display: flex;
@@ -1281,4 +1278,6 @@ ul {
     transform: none;
     transition: none;
   }
-}/*# sourceMappingURL=style.css.map */
+}
+
+/*# sourceMappingURL=style.css.map */
